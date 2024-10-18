@@ -44,7 +44,6 @@ class BookController extends Controller
      * 
      */
     public function update(BookRequest $request, $id){
-
         $book = Book::find($id);
         if(empty($book)){
             return response()->json(["message" => "Book not found"], 404);    

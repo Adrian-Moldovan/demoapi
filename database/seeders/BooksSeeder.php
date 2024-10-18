@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Models\Books;
+use App\Models\Book;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -49,7 +49,7 @@ class BooksSeeder extends Seeder
         ];
 
         foreach ($seeds as $seed) { 
-            Books::create($seed);
+            Book::create($seed);
         }
     }
 }
