@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Books;
-use Illuminate\Http\Request;
+use App\Models\Book;
+use App\Http\Requests\BookRequest;
 
 class BookController extends Controller
 {
     public function index(){
-        $books = Books::all();
+        $books = Book::all();
         return response()->json($books);
     }
     
@@ -17,7 +17,7 @@ class BookController extends Controller
      * 
      */
     public function show($id){
-        $book = Books::find($id);
+        $book = Book::find($id);
         if(empty($book)){
             return response()->json(["message" => "Book not found"], 404);    
         }
@@ -29,10 +29,8 @@ class BookController extends Controller
     /**
      * 
      */
-    public function store(Request $request){
-        $book = new Books;
-        $book->name = $request->name;
-        $book->publish_date = $request->publish_date;
+    public function store(BookRequest $request){
+        $book = new Book($request->validated());
         $book->save();
 
         return response()->json([
@@ -45,15 +43,14 @@ class BookController extends Controller
     /**
      * 
      */
-    public function update(Request $request, $id){
-        $book = Books::find($id);
+    public function update(BookRequest $request, $id){
+
+        $book = Book::find($id);
         if(empty($book)){
             return response()->json(["message" => "Book not found"], 404);    
         }
 
-        $book->name = is_null($request->name) ? $book->name : $request->name;
-        $book->publish_date = is_null($request->publish_date) ? $book->publish_date : $request->publish_date;
-        $book->save();
+        $book->update($request->validated());
 
         return response()->json([
             "message" => "Book updated",
@@ -66,7 +63,7 @@ class BookController extends Controller
      * 
      */
     public function destroy($id){
-        $book = Books::find($id);
+        $book = Book::find($id);
         if(empty($book)){
             return response()->json(["message" => "Book not found"], 404);    
         }
