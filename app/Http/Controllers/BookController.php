@@ -32,7 +32,6 @@ class BookController extends Controller
     public function store(Request $request){
         $book = new Books;
         $book->name = $request->name;
-        $book->author = $request->author;
         $book->publish_date = $request->publish_date;
         $book->save();
 
@@ -53,7 +52,6 @@ class BookController extends Controller
         }
 
         $book->name = is_null($request->name) ? $book->name : $request->name;
-        $book->author = is_null($request->author) ? $book->author : $request->author;
         $book->publish_date = is_null($request->publish_date) ? $book->publish_date : $request->publish_date;
         $book->save();
 
