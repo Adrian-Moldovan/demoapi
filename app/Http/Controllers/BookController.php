@@ -16,12 +16,7 @@ class BookController extends Controller
     /**
      * 
      */
-    public function show($id){
-        $book = Book::find($id);
-        if(empty($book)){
-            return response()->json(["message" => "Book not found"], 404);    
-        }
-
+    public function show(Book $book){
         return response()->json($book);
     }
 
@@ -43,12 +38,7 @@ class BookController extends Controller
     /**
      * 
      */
-    public function update(BookRequest $request, $id){
-        $book = Book::find($id);
-        if(empty($book)){
-            return response()->json(["message" => "Book not found"], 404);    
-        }
-
+    public function update(BookRequest $request, Book $book){
         $book->update($request->validated());
 
         return response()->json([
@@ -61,14 +51,8 @@ class BookController extends Controller
     /**
      * 
      */
-    public function destroy($id){
-        $book = Book::find($id);
-        if(empty($book)){
-            return response()->json(["message" => "Book not found"], 404);    
-        }
-
+    public function destroy(Book $book){
         $book->delete();
-
         return response()->json(["message" => "Book deleted"], 204);
     }
 }

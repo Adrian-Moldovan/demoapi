@@ -17,6 +17,13 @@ class AuthorController extends Controller
     }
 
     /**
+     * Display the specified resource.
+     */
+    public function show(Author $author){
+        return response()->json($author);
+    }
+
+    /**
      * Store a newly created resource in storage.
      */
     public function store(AuthorRequest $request)
@@ -31,28 +38,9 @@ class AuthorController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        $author = Author::find($id);
-        if(empty($author)){
-            return response()->json(["message" => "Author not found"], 404);    
-        }
-
-        return response()->json($author);
-    }
-
-    /**
      * Update the specified resource in storage.
      */
-    public function update(AuthorRequest $request, string $id)
-    {
-        $author = Author::find($id);
-        if(empty($author)){
-            return response()->json(["message" => "Author not found"], 404);    
-        }
-
+    public function update(AuthorRequest $request, Author $author){
         $author->update($request->validated());
 
         return response()->json([
@@ -64,15 +52,8 @@ class AuthorController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
-    {
-        $author = Author::find($id);
-        if(empty($author)){
-            return response()->json(["message" => "Author not found"], 404);    
-        }
-
+    public function destroy(Author $author){
         $author->delete();
-
         return response()->json(["message" => "Author deleted"], 204);
     }
 }

@@ -10,7 +10,7 @@ Route::get('/user', function (Request $request) {
 })->middleware('auth:sanctum');
 
 
-Route::resources([
-    'books'     =>  BookController::class,
+Route::apiResources([
+    'books'     => BookController::class,
     'authors'   => AuthorController::class,
 ]);
